@@ -1,4 +1,3 @@
-extern crate copy_dir;
 use copy_dir::copy_dir;
 use std::fs;
 
@@ -24,5 +23,18 @@ impl FileManager {
 
     pub fn clone(path1: String, path2: String) {
         copy_dir(path1, path2);
+    }
+
+    pub fn remove(path: String) {
+        fs::remove_dir_all(path);
+    }
+
+    pub fn touch(path: String) {
+        if path.contains(".") {
+            let file = fs::File::create(path);
+        }
+        else {
+            fs::create_dir(path);
+        }
     }
 }

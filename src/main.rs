@@ -21,7 +21,7 @@ fn main() {
 
         )
 
-        .subcommand(SubCommand::with_name("cat")
+        .subcommand(SubCommand::with_name("wof")
             .about("Writes out file")
 
             .arg(Arg::with_name("file")
@@ -37,6 +37,22 @@ fn main() {
 
             .arg(Arg::with_name("path2")
                 .index(2))
+
+        )
+
+        .subcommand(SubCommand::with_name("remove")
+            .about("Removes file or directory")
+
+            .arg(Arg::with_name("path")
+                .index(1))
+
+        )
+
+        .subcommand(SubCommand::with_name("touch")
+            .about("Creates file or directory")
+
+            .arg(Arg::with_name("path")
+                .index(1))
 
         )
 
@@ -60,6 +76,24 @@ fn main() {
         }
         else {
             println!("Please enter file!");
+        }
+    }
+
+    else if let Some(matches) = matches.subcommand_matches("rm") {
+        if matches.is_present("path") {
+            FileManager::remove(optionstr_2_string(matches.value_of("path")));
+        }
+        else {
+            println!("Please enter path!");
+        }
+    }
+
+    else if let Some(matches) = matches.subcommand_matches("touch") {
+        if matches.is_present("path") {
+            FileManager::touch(optionstr_2_string(matches.value_of("path")));
+        }
+        else {
+            println!("Please enter path!");
         }
     }
 
