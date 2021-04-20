@@ -10,9 +10,9 @@ pub struct FileManager;
 
 impl FileManager {
     pub fn compare(file1: String, file2: String) -> String {
-        let content1 = FileManager::read_file(file1);
-        let content2 = FileManager::read_file(file2);
-        let mut result = "";
+        let _content1 = FileManager::read_file(file1);
+        let _content2 = FileManager::read_file(file2);
+        let _result = "";
 
         return "".to_string();
     }
@@ -31,7 +31,7 @@ impl FileManager {
 
     pub fn touch(path: String) {
         if path.contains(".") {
-            let file = fs::File::create(path);
+            fs::File::create(path);
         }
         else {
             fs::create_dir(path);
