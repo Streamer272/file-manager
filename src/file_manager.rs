@@ -14,6 +14,8 @@ impl FileManager {
         let _content2 = FileManager::read_file(file2);
         let _result = "";
 
+        // TODO: finish this function
+
         return "".to_string();
     }
 
@@ -24,6 +26,8 @@ impl FileManager {
     pub fn clone(path1: String, path2: String) {
         copy_dir(path1, path2).expect("Couldn't copy directory.");
     }
+
+    // TODO: create function for finding out if path is directory or file
 
     pub fn remove(path: String) {
         if path.contains(".") {

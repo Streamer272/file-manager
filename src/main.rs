@@ -5,6 +5,8 @@ use crate::file_manager::{FileManager, optionstr_2_string};
 
 
 fn main() {
+    // TODO: add move, rename
+
     let matches = App::new("file-manager")
         .version("1.0")
         .author("Streamer272")
