@@ -18,23 +18,23 @@ impl FileManager {
     }
 
     pub fn read_file(file_name: String) -> String {
-        return fs::read_to_string(file_name).expect("Couldn't read file!");
+        return fs::read_to_string(file_name).expect("Couldn't read file.");
     }
 
     pub fn clone(path1: String, path2: String) {
-        copy_dir(path1, path2);
+        copy_dir(path1, path2).expect("Couldn't copy directory.");
     }
 
     pub fn remove(path: String) {
-        fs::remove_dir_all(path);
+        fs::remove_dir(path).expect("Couldn't remove directory.");
     }
 
     pub fn touch(path: String) {
         if path.contains(".") {
-            fs::File::create(path);
+            fs::File::create(path).expect("Couldn't create file.");
         }
         else {
-            fs::create_dir(path);
+            fs::create_dir(path).expect("Couldn't create directory.");
         }
     }
 }
