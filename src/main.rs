@@ -69,7 +69,7 @@ fn main() {
         }
     }
 
-    else if let Some(matches) = matches.subcommand_matches("cat") {
+    else if let Some(matches) = matches.subcommand_matches("wof") {
         if matches.is_present("file") {
             println!("{}", FileManager::read_file(
                 optionstr_2_string(matches.value_of("file"))));
