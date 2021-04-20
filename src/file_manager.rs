@@ -26,7 +26,12 @@ impl FileManager {
     }
 
     pub fn remove(path: String) {
-        fs::remove_dir(path).expect("Couldn't remove directory.");
+        if path.contains(".") {
+            fs::remove_file(path).expect("Couldn't remove file.");
+        }
+        else {
+            fs::remove_dir(path).expect("Couldn't remove directory.");
+        }
     }
 
     pub fn touch(path: String) {

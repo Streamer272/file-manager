@@ -10,7 +10,7 @@ fn main() {
         .author("Streamer272")
         .about("File managing program to help you track and control your files")
 
-        .subcommand(SubCommand::with_name("compare")
+        .subcommand(SubCommand::with_name("cmp")
             .about("Compares two files")
 
             .arg(Arg::with_name("file1")
@@ -29,7 +29,7 @@ fn main() {
 
         )
 
-        .subcommand(SubCommand::with_name("clone")
+        .subcommand(SubCommand::with_name("cln")
             .about("Clones file or directory")
 
             .arg(Arg::with_name("path1")
@@ -40,7 +40,7 @@ fn main() {
 
         )
 
-        .subcommand(SubCommand::with_name("remove")
+        .subcommand(SubCommand::with_name("rmv")
             .about("Removes file or directory")
 
             .arg(Arg::with_name("path")
@@ -48,7 +48,7 @@ fn main() {
 
         )
 
-        .subcommand(SubCommand::with_name("touch")
+        .subcommand(SubCommand::with_name("mk")
             .about("Creates file or directory")
 
             .arg(Arg::with_name("path")
@@ -58,7 +58,7 @@ fn main() {
 
         .get_matches();
 
-    if let Some(matches) = matches.subcommand_matches("compare") {
+    if let Some(matches) = matches.subcommand_matches("cmp") {
         if matches.is_present("file1") && matches.is_present("file2") {
             println!("{}", FileManager::compare(
                 optionstr_2_string(matches.value_of("file1")),
@@ -79,7 +79,7 @@ fn main() {
         }
     }
 
-    else if let Some(matches) = matches.subcommand_matches("rm") {
+    else if let Some(matches) = matches.subcommand_matches("rmv") {
         if matches.is_present("path") {
             FileManager::remove(optionstr_2_string(matches.value_of("path")));
         }
@@ -88,7 +88,7 @@ fn main() {
         }
     }
 
-    else if let Some(matches) = matches.subcommand_matches("touch") {
+    else if let Some(matches) = matches.subcommand_matches("mk") {
         if matches.is_present("path") {
             FileManager::touch(optionstr_2_string(matches.value_of("path")));
         }
@@ -97,7 +97,7 @@ fn main() {
         }
     }
 
-    else if let Some(matches) = matches.subcommand_matches("clone") {
+    else if let Some(matches) = matches.subcommand_matches("cln") {
         if matches.is_present("path1") && matches.is_present("path2") {
             FileManager::clone(optionstr_2_string(matches.value_of("path1")),
                                optionstr_2_string(matches.value_of("path2")));
