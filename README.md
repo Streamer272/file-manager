@@ -11,7 +11,7 @@ File manager only works on Windows. Don't ask for Linux or MacOS help.
 ### What is File manager
 <hr>
 File manager is program created in Rust to control and keep track of your files.
-Need help? Enter "fm --help". Need help with certain command? Enter "fm [command] --help".
+Need help?
 <br><br>
 
 ### Features
@@ -23,4 +23,7 @@ Need help? Enter "fm --help". Need help with certain command? Enter "fm [command
     <li>Open Source</li>
 </ul>
 
-### 
+### Getting help
+<hr>
+Enter "fm --help". If you need help with specific command, enter "fm [command] --help".
+<br><br>

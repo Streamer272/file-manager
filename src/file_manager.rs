@@ -24,7 +24,15 @@ impl FileManager {
     }
 
     pub fn clone(path1: String, path2: String) {
-        copy_dir(path1, path2).expect("Couldn't copy directory.");
+        let path1_ = path1.clone();
+        let path2_ = path2.clone();
+
+        if FileManager::is_dir(&path1_) {
+            copy_dir(&path1_, &path2_).expect("Couldn't copy directory.");
+        }
+        else {
+            fs::File::create(&path2_).expect("Couldn't copy file.");
+        }
     }
 
     pub fn is_dir(path: &String) -> bool {

@@ -57,13 +57,16 @@ fn main() {
                 .index(1))
 
             .arg(Arg::with_name("mk-type-file")
-                .short("--file")
+                .short("-f")
+                .long("--file")
+                .help("Creates file")
                 .required(false)
                 .takes_value(false))
 
             .arg(Arg::with_name("mk-type-dir")
-                .short("--dir")
+                .short("-d")
                 .long("--directory")
+                .help("Creates directory")
                 .required(false)
                 .takes_value(false))
 
@@ -118,8 +121,6 @@ fn main() {
         if matches.is_present("cln-path1") && matches.is_present("cln-path2") {
             FileManager::clone(optionstr_2_string(matches.value_of("cln-path1")),
                                optionstr_2_string(matches.value_of("cln-path2")));
-
-            println!("Path cloned successfully!");
         }
         else {
             println!("Please enter both paths!");
