@@ -9,6 +9,8 @@ pub fn optionstr_2_string(text: Option<&str>) -> String {
 pub struct FileManager;
 
 impl FileManager {
+    // TODO: add exception handling and file exists checking
+
     pub fn compare(file1: String, file2: String) -> String {
         let _content1 = FileManager::read_file(file1);
         let _content2 = FileManager::read_file(file2);
@@ -60,5 +62,9 @@ impl FileManager {
         else {
             fs::create_dir(path).expect("Couldn't create directory.");
         }
+    }
+
+    pub fn rename(path1: String, path2: String) {
+        fs::rename(path1, path2).expect("Couldn't rename file or directory.");
     }
 }

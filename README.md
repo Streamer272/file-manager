@@ -22,6 +22,7 @@ Need help?
     <li>Reliable</li>
     <li>Open Source</li>
 </ul>
+<br>
 
 ### Getting help
 <hr>

@@ -1,13 +1,13 @@
-use clap::{Arg, App, SubCommand};
+use clap::{Arg, App, SubCommand, ArgMatches};
 
 mod file_manager;
 use crate::file_manager::{FileManager, optionstr_2_string};
 
 
-fn main() {
+fn get_matches() -> ArgMatches {
     // TODO: add move, rename
 
-    let matches = App::new("file-manager")
+    return App::new("file-manager")
         .version("1.0")
         .author("Streamer272")
         .about("File managing program to help you track and control your files")
@@ -73,6 +73,11 @@ fn main() {
         )
 
         .get_matches();
+}
+
+
+fn main() {
+    let matches = get_matches();
 
     if let Some(matches) = matches.subcommand_matches("cmp") {
         if matches.is_present("cmp-file1") && matches.is_present("cmp-file2") {
