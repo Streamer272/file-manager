@@ -24,32 +24,29 @@ impl FileManager {
     }
 
     pub fn clone(path1: String, path2: String) {
-        // TODO: check if this copies files
-
         copy_dir(path1, path2).expect("Couldn't copy directory.");
     }
 
-    // TODO: create function for finding out if path is directory or file
-
-    pub fn is_dir(path: String) -> bool {
+    pub fn is_dir(path: &String) -> bool {
         let metadata = fs::metadata(&path).unwrap();
 
         return metadata.is_dir();
     }
 
     pub fn remove(path: String) {
-        // TODO: fix this
+        let path_ = path.clone();
 
-        if FileManager::is_dir(path) {
-            fs::remove_dir(path.clone()).expect("Couldn't remove directory.");
+        if FileManager::is_dir(&path_) {
+            // remove_dir_all also removes files in that directory (not just directory)
+            fs::remove_dir_all(&path_).expect("Couldn't remove directory.");
         }
         else {
-            fs::remove_file(path.clone()).expect("Couldn't remove file.");
+            fs::remove_file(&path_).expect("Couldn't remove file.");
         }
     }
 
-    pub fn touch(path: String) {
-        if path.contains(".") {
+    pub fn touch(path: String, is_file: bool) {
+        if is_file {
             fs::File::create(path).expect("Couldn't create file.");
         }
         else {
