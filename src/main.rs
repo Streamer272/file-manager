@@ -50,14 +50,14 @@ fn get_matches() -> ArgMatches<'static> {
             )
         )
 
-        .subcommand(SubCommand::with_name("mks")
+        .subcommand(SubCommand::with_name("mk")
             .about("Creates file or directory")
 
-            .arg(Arg::with_name("mks-path")
+            .arg(Arg::with_name("mk-path")
                 .index(1)
             )
 
-            .arg(Arg::with_name("mks-type-file")
+            .arg(Arg::with_name("mk-type-file")
                 .short("f")
                 .long("file")
                 .help("Creates file")
@@ -65,7 +65,7 @@ fn get_matches() -> ArgMatches<'static> {
                 .takes_value(false)
             )
 
-            .arg(Arg::with_name("mks-type-dir")
+            .arg(Arg::with_name("mk-type-dir")
                 .short("d")
                 .long("directory")
                 .help("Creates directory")
@@ -86,14 +86,14 @@ fn get_matches() -> ArgMatches<'static> {
             )
         )
 
-        .subcommand(SubCommand::with_name("mvt")
+        .subcommand(SubCommand::with_name("mv")
             .about("Moves file or directory")
 
-            .arg(Arg::with_name("mvt-path1")
+            .arg(Arg::with_name("mv-path1")
                 .index(1)
             )
 
-            .arg(Arg::with_name("mvt-path2")
+            .arg(Arg::with_name("mv-path2")
                 .index(2)
             )
         )
@@ -139,12 +139,12 @@ fn main() {
         }
     }
 
-    else if let Some(matches) = matches.subcommand_matches("mks") {
-        if matches.is_present("mks-path") {
-            let type_file: bool = matches.is_present("mks-type-file") &&
-                !matches.is_present("mks-type-dir");
+    else if let Some(matches) = matches.subcommand_matches("mk") {
+        if matches.is_present("mk-path") {
+            let type_file: bool = matches.is_present("mk-type-file") &&
+                !matches.is_present("mk-type-dir");
 
-            FileManager::touch(option2string(matches.value_of("mks-path")),
+            FileManager::touch(option2string(matches.value_of("mk-path")),
                                type_file);
         }
         else {
@@ -172,20 +172,20 @@ fn main() {
         }
     }
 
-    else if let Some(matches) = matches.subcommand_matches("mvt") {
-        if matches.is_present("mvt-path1") && matches.is_present("mvt-path2") {
-            let mvt_path1 = option2string(matches.value_of("mvt-path1"));
-            let mut mvt_path2 = option2string(matches.value_of("mvt-path2"));
+    else if let Some(matches) = matches.subcommand_matches("mv") {
+        if matches.is_present("mv-path1") && matches.is_present("mv-path2") {
+            let mv_path1 = option2string(matches.value_of("mv-path1"));
+            let mut mv_path2 = option2string(matches.value_of("mv-path2"));
 
-            if !mvt_path2.ends_with(&mvt_path1) {
-                if !mvt_path2.ends_with("/") {
-                    mvt_path2.push_str("/");
+            if !mv_path2.ends_with(&mv_path1) {
+                if !mv_path2.ends_with("/") {
+                    mv_path2.push_str("/");
                 }
 
-                mvt_path2.push_str(&mvt_path1);
+                mv_path2.push_str(&mv_path1);
             }
 
-            FileManager::rename(mvt_path1, mvt_path2);
+            FileManager::rename(mv_path1, mv_path2);
         }
         else {
             println!("Please enter both paths!");

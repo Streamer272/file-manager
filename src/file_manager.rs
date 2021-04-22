@@ -1,6 +1,8 @@
 use copy_dir::copy_dir;
 use std::{fs, env};
 
+use crate::file_difference::FileDifference;
+
 
 pub fn option2string(text: Option<&str>) -> String {
     return String::from(text.unwrap());
@@ -41,10 +43,10 @@ impl FileManager {
         // TODO: this throws index error
 
         // {
-        //     let content2 = content2.split(" ");
+        //     let content2: Vec<&str> = content2.split(" ").collect();
         //
-        //     for _word in content1.split(" ") {
-        //         if _word == content2[index1] {
+        //     for word in content1.split("\n") {
+        //         if word == content2[index1] {
         //             result.push_str(content2[index2]);
         //         }
         //
