@@ -112,9 +112,9 @@ fn main() {
 
     if let Some(matches) = matches.subcommand_matches("cmp") {
         if matches.is_present("cmp-file1") && matches.is_present("cmp-file2") {
-            println!("{:?}", FileManager::compare(
-                option2string(matches.value_of("cmp-file1")),
-                option2string(matches.value_of("cmp-file2"))));
+            // println!("{:?}", FileManager::compare(
+            //     option2string(matches.value_of("cmp-file1")),
+            //     option2string(matches.value_of("cmp-file2"))));
         }
         else {
             println!("Please enter both files!");

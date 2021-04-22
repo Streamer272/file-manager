@@ -1,7 +1,6 @@
 use copy_dir::copy_dir;
 use std::{fs, env};
-
-use crate::file_difference::FileDifference;
+use difference::{Changeset, Difference};
 
 
 pub fn option2string(text: Option<&str>) -> String {
