@@ -1,7 +1,7 @@
 use clap::{Arg, App, SubCommand, ArgMatches};
 
 mod file_manager;
-use crate::file_manager::{FileManager, optionstr_2_string};
+use crate::file_manager::{FileManager, option2string};
 
 
 fn get_matches() -> ArgMatches<'static> {
@@ -97,9 +97,9 @@ fn main() {
 
     if let Some(matches) = matches.subcommand_matches("cmp") {
         if matches.is_present("cmp-file1") && matches.is_present("cmp-file2") {
-            println!("{}", FileManager::compare(
-                optionstr_2_string(matches.value_of("cmp-file1")),
-                optionstr_2_string(matches.value_of("cmp-file2"))));
+            println!("{:?}", FileManager::compare(
+                option2string(matches.value_of("cmp-file1")),
+                option2string(matches.value_of("cmp-file2"))));
         }
         else {
             println!("Please enter both files!");
@@ -108,8 +108,8 @@ fn main() {
 
     else if let Some(matches) = matches.subcommand_matches("wof") {
         if matches.is_present("wof-file") {
-            println!("{}", FileManager::read_file(
-                optionstr_2_string(matches.value_of("wof-file"))));
+            println!("{:?}", FileManager::read_file(
+                option2string(matches.value_of("wof-file"))));
         }
         else {
             println!("Please enter file!");
@@ -118,7 +118,7 @@ fn main() {
 
     else if let Some(matches) = matches.subcommand_matches("rmv") {
         if matches.is_present("rmv-path") {
-            FileManager::remove(optionstr_2_string(matches.value_of("rmv-path")));
+            FileManager::remove(option2string(matches.value_of("rmv-path")));
         }
         else {
             println!("Please enter path!");
@@ -130,7 +130,7 @@ fn main() {
             let type_file: bool = matches.is_present("mk-type-file") &&
                 !matches.is_present("mk-type-dir");
 
-            FileManager::touch(optionstr_2_string(matches.value_of("mk-path")),
+            FileManager::touch(option2string(matches.value_of("mk-path")),
                                type_file);
         }
         else {
@@ -140,8 +140,8 @@ fn main() {
 
     else if let Some(matches) = matches.subcommand_matches("cln") {
         if matches.is_present("cln-path1") && matches.is_present("cln-path2") {
-            FileManager::clone(optionstr_2_string(matches.value_of("cln-path1")),
-                               optionstr_2_string(matches.value_of("cln-path2")));
+            FileManager::clone(option2string(matches.value_of("cln-path1")),
+                               option2string(matches.value_of("cln-path2")));
         }
         else {
             println!("Please enter both paths!");
@@ -150,8 +150,8 @@ fn main() {
 
     else if let Some(matches) = matches.subcommand_matches("rnm") {
         if matches.is_present("rnm-path1") && matches.is_present("rnm-path2") {
-            FileManager::rename(optionstr_2_string(matches.value_of("rnm-path1")),
-                                optionstr_2_string(matches.value_of("rnm-path2")));
+            FileManager::rename(option2string(matches.value_of("rnm-path1")),
+                                option2string(matches.value_of("rnm-path2")));
         }
         else {
             println!("Please enter both paths!");
