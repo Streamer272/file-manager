@@ -1,6 +1,5 @@
 use copy_dir::copy_dir;
 use std::{fs, env};
-use std::ops::Index;
 
 
 pub fn option2string(text: Option<&str>) -> String {
@@ -19,8 +18,7 @@ impl FileManager {
     }
 
     pub fn compare(file1: String, file2: String) -> Option<String> {
-
-        if !FileManager::path_exists(file1.clone()) {
+        if !FileManager::path_exists(&file1) {
             println!("First file doesnt exist!");
             return None;
         }
@@ -31,9 +29,9 @@ impl FileManager {
 
         // TODO: finish this function
 
-        let content1 = String::from(FileManager::read_file(file1.clone())
+        let content1 = String::from(FileManager::read_file((&file1).to_string())
             .unwrap());
-        let content2 = String::from(FileManager::read_file(file2.clone())
+        let content2 = String::from(FileManager::read_file((&file2).to_string())
             .unwrap());
         let mut result = "";
 
@@ -42,20 +40,28 @@ impl FileManager {
 
         // TODO: this throws index error
 
-        // for _word in content1.split(" ") {
-        //     if content1.index(index1) == content2.index(index2) {
-        //         result.push(content1.index(index1));
-        //     }
+        // {
+        //     let content2 = content2.split(" ");
         //
-        //     index1 += 1;
-        //     index2 += 1;
+        //     for _word in content1.split(" ") {
+        //         if _word == content2[index1] {
+        //             result.push_str(content2[index2]);
+        //         }
+        //
+        //         // if content1.chars().collect()[index1] == content2.chars().collect()[index2] {
+        //         //     result.push(content1.chars().collect()[index1]);
+        //         // }
+        //
+        //         index1 += 1;
+        //         //index2 += 1;
+        //     }
         // }
 
-        Option::from(result.to_string())
+        return Option::from(result.to_string());
     }
 
     pub fn read_file(file_name: String) -> Option<String> {
-        if !FileManager::path_exists(file_name.clone()) {
+        if !FileManager::path_exists(&file_name) {
             println!("File doesnt exist!");
             return None;
         }
@@ -65,23 +71,20 @@ impl FileManager {
     }
 
     pub fn clone(path1: String, path2: String) -> bool {
-        if !FileManager::path_exists(path1.clone()) {
+        if !FileManager::path_exists(&path1) {
             println!("Clone path doesnt exist!");
             return true;
         }
-        if FileManager::path_exists(path2.clone()) {
+        if FileManager::path_exists(&path2) {
             println!("Cloned path already exist!");
             return true;
         }
 
-        let path1_ = path1.clone();
-        let path2_ = path2.clone();
-
-        if option2bool(FileManager::is_dir(&path1_)) {
-            copy_dir(&path1_, &path2_).expect("Couldn't copy directory.");
+        if option2bool(FileManager::is_dir(&path1)) {
+            copy_dir(&path1, &path2).expect("Couldn't copy directory.");
         }
         else {
-            fs::File::create(&path2_).expect("Couldn't copy file.");
+            fs::File::create(&path2).expect("Couldn't copy file.");
         }
 
         return false;
@@ -104,14 +107,12 @@ impl FileManager {
             return true;
         }
 
-        let path_ = path.clone();
-
-        if option2bool(FileManager::is_dir(&path_)) {
+        if option2bool(FileManager::is_dir(&path)) {
             // remove_dir_all also removes files in that directory (not just directory)
-            fs::remove_dir_all(&path_).expect("Couldn't remove directory.");
+            fs::remove_dir_all(&path).expect("Couldn't remove directory.");
         }
         else {
-            fs::remove_file(&path_).expect("Couldn't remove file.");
+            fs::remove_file(&path).expect("Couldn't remove file.");
         }
 
         return false;
@@ -134,7 +135,7 @@ impl FileManager {
     }
 
     pub fn rename(path1: String, path2: String) -> bool {
-        if !FileManager::path_exists(path1.clone()) {
+        if !FileManager::path_exists(&path1) {
             println!("Rename path doesnt exist!");
             return true;
         }
@@ -143,7 +144,7 @@ impl FileManager {
             return true;
         }
 
-        fs::rename(path1, path2).expect("Couldn't rename file or directory.");
+        fs::rename(&path1, &path2).expect("Couldn't rename file or directory.");
 
         return false;
     }

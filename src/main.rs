@@ -122,8 +122,8 @@ fn main() {
 
     else if let Some(matches) = matches.subcommand_matches("wof") {
         if matches.is_present("wof-file") {
-            println!("{:?}", FileManager::read_file(
-                option2string(matches.value_of("wof-file"))));
+            println!("{}", FileManager::read_file(
+                option2string(matches.value_of("wof-file"))).unwrap().to_string());
         }
         else {
             println!("Please enter file!");
