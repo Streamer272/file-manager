@@ -13,7 +13,7 @@ pub fn option2bool(boolean: Option<bool>) -> bool {
 pub struct FileManager;
 
 impl FileManager {
-    fn path_exists(path: String) -> bool {
+    fn path_exists(path: &String) -> bool {
         return fs::metadata(path).is_ok();
     }
 
@@ -22,7 +22,7 @@ impl FileManager {
             println!("First file doesnt exist!");
             return None;
         }
-        if !FileManager::path_exists(file2.clone()) {
+        if !FileManager::path_exists(&file2) {
             println!("Second file doesnt exist!");
             return None;
         }
@@ -33,7 +33,7 @@ impl FileManager {
             .unwrap());
         let content2 = String::from(FileManager::read_file((&file2).to_string())
             .unwrap());
-        let mut result = "";
+        let mut result = String::new();
 
         let mut index1 = 0;
         let mut index2 = 0;
@@ -91,7 +91,7 @@ impl FileManager {
     }
 
     pub fn is_dir(path: &String) -> Option<bool> {
-        if !FileManager::path_exists(path.clone()) {
+        if !FileManager::path_exists(&path) {
             println!("Path doesnt exist!");
             return None;
         }
@@ -102,7 +102,7 @@ impl FileManager {
     }
 
     pub fn remove(path: String) -> bool {
-        if !FileManager::path_exists(path.clone()) {
+        if !FileManager::path_exists(&path) {
             println!("Path doesnt exist!");
             return true;
         }
@@ -119,7 +119,7 @@ impl FileManager {
     }
 
     pub fn touch(path: String, is_file: bool) -> bool {
-        if FileManager::path_exists(path.clone()) {
+        if FileManager::path_exists(&path) {
             println!("Path already exist!");
             return true;
         }
@@ -139,7 +139,7 @@ impl FileManager {
             println!("Rename path doesnt exist!");
             return true;
         }
-        if FileManager::path_exists(path2.clone()) {
+        if FileManager::path_exists(&path2) {
             println!("Renamed path already exist!");
             return true;
         }
