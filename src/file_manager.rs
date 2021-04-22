@@ -13,8 +13,6 @@ pub fn option2bool(boolean: Option<bool>) -> bool {
 pub struct FileManager;
 
 impl FileManager {
-    // TODO: add exception handling and file exists checking
-
     fn path_exists(path: String) -> bool {
         return fs::metadata(path).is_ok();
     }
