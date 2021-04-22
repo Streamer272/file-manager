@@ -4,8 +4,8 @@ mod file_manager;
 use crate::file_manager::{FileManager, optionstr_2_string};
 
 
-fn get_matches() -> ArgMatches {
-    // TODO: add move, rename
+fn get_matches() -> ArgMatches<'static> {
+    // TODO: add move
 
     return App::new("file-manager")
         .version("1.0")
@@ -57,18 +57,34 @@ fn get_matches() -> ArgMatches {
                 .index(1))
 
             .arg(Arg::with_name("mk-type-file")
-                .short("-f")
-                .long("--file")
+                .short("f")
+                .long("file")
                 .help("Creates file")
                 .required(false)
                 .takes_value(false))
 
             .arg(Arg::with_name("mk-type-dir")
-                .short("-d")
-                .long("--directory")
+                .short("d")
+                .long("directory")
                 .help("Creates directory")
                 .required(false)
                 .takes_value(false))
+
+        )
+
+        .subcommand(SubCommand::with_name("rnm")
+            .about("Renames file or directory")
+
+            .arg(Arg::with_name("rnm-path1")
+                .index(1))
+
+            .arg(Arg::with_name("rnm-path2")
+                .index(2))
+
+        )
+
+        .subcommand(SubCommand::with_name("gwd")
+            .about("Prints working directory")
 
         )
 
@@ -130,5 +146,19 @@ fn main() {
         else {
             println!("Please enter both paths!");
         }
+    }
+
+    else if let Some(matches) = matches.subcommand_matches("rnm") {
+        if matches.is_present("rnm-path1") && matches.is_present("rnm-path2") {
+            FileManager::rename(optionstr_2_string(matches.value_of("rnm-path1")),
+                                optionstr_2_string(matches.value_of("rnm-path2")));
+        }
+        else {
+            println!("Please enter both paths!");
+        }
+    }
+
+    else if let Some(_matches) = matches.subcommand_matches("gwd") {
+        println!("{}", FileManager::get_working_directory());
     }
 }

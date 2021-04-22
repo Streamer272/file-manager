@@ -1,5 +1,6 @@
 use copy_dir::copy_dir;
-use std::fs;
+use std::{fs, env};
+use std::path::{Path, PathBuf};
 
 
 pub fn optionstr_2_string(text: Option<&str>) -> String {
@@ -66,5 +67,10 @@ impl FileManager {
 
     pub fn rename(path1: String, path2: String) {
         fs::rename(path1, path2).expect("Couldn't rename file or directory.");
+    }
+
+    pub fn get_working_directory() -> String {
+        let path = env::current_dir().expect("Couldn't get working directory.");
+        return path.display().to_string();
     }
 }
