@@ -37,8 +37,8 @@ impl FileManager {
             .unwrap());
         let mut result = String::new();
 
-        let mut index1 = 0;
-        let mut index2 = 0;
+        // let mut index1 = 0;
+        // let mut index2 = 0;
 
         // TODO: this throws index error
 
@@ -58,6 +58,9 @@ impl FileManager {
         //         //index2 += 1;
         //     }
         // }
+
+        let mut differences: Vec<String> = Vec::new();
+        let mut difference_indexes: Vec<usize> = Vec::new();
 
         return Option::from(result.to_string());
     }

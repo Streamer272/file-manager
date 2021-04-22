@@ -1,6 +1,7 @@
 use clap::{Arg, App, SubCommand, ArgMatches};
 
-mod file_manager;
+pub mod file_manager;
+pub mod file_difference;
 use crate::file_manager::{FileManager, option2string};
 
 
