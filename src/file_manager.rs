@@ -1,5 +1,6 @@
 use copy_dir::copy_dir;
 use std::{fs, env};
+use std::ops::Index;
 
 
 pub fn option2string(text: Option<&str>) -> String {
@@ -28,13 +29,29 @@ impl FileManager {
             return None;
         }
 
-        let _content1 = FileManager::read_file(file1.clone());
-        let _content2 = FileManager::read_file(file2.clone());
-        let result = "";
-
         // TODO: finish this function
 
-        return Option::from(result.to_string());
+        let content1 = String::from(FileManager::read_file(file1.clone())
+            .unwrap());
+        let content2 = String::from(FileManager::read_file(file2.clone())
+            .unwrap());
+        let mut result = "";
+
+        let mut index1 = 0;
+        let mut index2 = 0;
+
+        // TODO: this throws index error
+
+        // for _word in content1.split(" ") {
+        //     if content1.index(index1) == content2.index(index2) {
+        //         result.push(content1.index(index1));
+        //     }
+        //
+        //     index1 += 1;
+        //     index2 += 1;
+        // }
+
+        Option::from(result.to_string())
     }
 
     pub fn read_file(file_name: String) -> Option<String> {

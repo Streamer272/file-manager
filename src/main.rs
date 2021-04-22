@@ -5,8 +5,6 @@ use crate::file_manager::{FileManager, option2string};
 
 
 fn get_matches() -> ArgMatches<'static> {
-    // TODO: add move
-
     return App::new("file-manager")
         .version("1.0")
         .author("Streamer272")
