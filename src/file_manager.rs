@@ -3,8 +3,8 @@ use std::{fs, env};
 use difference::{Changeset, Difference};
 
 
-pub fn option2string(text: Option<&str>) -> String {
-    return String::from(text.unwrap());
+pub fn option2string(variable: Option<&str>) -> String {
+    return String::from(variable.unwrap());
 }
 
 pub fn option2bool(boolean: Option<bool>) -> bool {
@@ -18,50 +18,26 @@ impl FileManager {
         return fs::metadata(path).is_ok();
     }
 
-    pub fn compare(file1: String, file2: String) -> Option<String> {
-        if !FileManager::path_exists(&file1) {
-            println!("First file doesnt exist!");
-            return None;
-        }
-        if !FileManager::path_exists(&file2) {
-            println!("Second file doesnt exist!");
-            return None;
-        }
-
+    pub fn compare(file1: String, file2: String) -> /* Option<Vec<Difference>> */ Option<Changeset> {
         // TODO: finish this function
 
-        let content1 = String::from(FileManager::read_file((&file1).to_string())
-            .unwrap());
-        let content2 = String::from(FileManager::read_file((&file2).to_string())
-            .unwrap());
-        let mut result = String::new();
+        let content1 = match fs::read_to_string(file1) {
+            Ok(c) => c,
+            Err(_err) => {
+                println!("Couldn't read first file!");
+                return None;
+            }
+        };
 
-        // let mut index1 = 0;
-        // let mut index2 = 0;
+        let content2 = match fs::read_to_string(file2) {
+            Ok(c) => c,
+            Err(_err) => {
+                println!("Couldn't read second file!");
+                return None;
+            }
+        };
 
-        // TODO: this throws index error
-
-        // {
-        //     let content2: Vec<&str> = content2.split(" ").collect();
-        //
-        //     for word in content1.split("\n") {
-        //         if word == content2[index1] {
-        //             result.push_str(content2[index2]);
-        //         }
-        //
-        //         // if content1.chars().collect()[index1] == content2.chars().collect()[index2] {
-        //         //     result.push(content1.chars().collect()[index1]);
-        //         // }
-        //
-        //         index1 += 1;
-        //         //index2 += 1;
-        //     }
-        // }
-
-        let mut differences: Vec<String> = Vec::new();
-        let mut difference_indexes: Vec<usize> = Vec::new();
-
-        return Option::from(result.to_string());
+         return Some(Changeset::new(&content1, &content2, "\n"));
     }
 
     pub fn read_file(file_name: String) -> Option<String> {

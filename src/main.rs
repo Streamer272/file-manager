@@ -1,7 +1,6 @@
 use clap::{Arg, App, SubCommand, ArgMatches};
 
 pub mod file_manager;
-pub mod file_difference;
 use crate::file_manager::{FileManager, option2string};
 
 
@@ -108,6 +107,10 @@ fn get_matches() -> ArgMatches<'static> {
 
 
 fn main() {
+    FileManager::compare("file1.txt".to_string(),
+                         "file2.txt".to_string());
+    return;
+
     let matches = get_matches();
 
     if let Some(matches) = matches.subcommand_matches("cmp") {
